@@ -14,6 +14,9 @@
           <MenuItem name="chinaMap">
             <span>地图数据</span>
           </MenuItem>
+          <MenuItem name="route">
+            <span>风险评估</span>
+          </MenuItem>
         </Menu>
       </Sider>
       <Layout>

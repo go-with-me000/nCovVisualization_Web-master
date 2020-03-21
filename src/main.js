@@ -8,6 +8,7 @@ import 'view-design/dist/styles/iview.css';
 import echarts from 'echarts'
 import 'echarts/map/js/china'
 import router from './router'
+import '../static/common.js'
 
 Vue.use(ViewUI);
 
