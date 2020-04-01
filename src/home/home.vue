@@ -3,7 +3,7 @@
     <Layout style="height: 100vh;">
       <Sider :width="250">
         <div class="layout-logo-left">
-          <img src="../assets/img/font.png">
+          <img src="../assets/img/fontNew.png">
         </div>
         <Menu :active-name="activeName"
               width="251px"
@@ -13,6 +13,12 @@
           </MenuItem>
           <MenuItem name="chinaMap">
             <span>地图数据</span>
+          </MenuItem>
+          <MenuItem name="riskAssess">
+            <span>风险评估</span>
+          </MenuItem>
+          <MenuItem name="route">
+            <span>路径风险评估</span>
           </MenuItem>
         </Menu>
       </Sider>
