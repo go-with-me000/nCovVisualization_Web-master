@@ -30,6 +30,11 @@
         props: {
             row: Object
         },
+        watch: {
+            row(){
+                this.init()
+            }
+        },
         data(){
             return{
                 cityName: '',
@@ -52,6 +57,13 @@
                 return str;
             },
             init(){
+                this.date = []
+                this.totalConfirm = []
+                this.remainConfirm = []
+                this.totalDead= []
+                this.totalCure= []
+                this.deadRate= []
+                this.cureRate= []
                 let myChart = this.$echarts.init(document.getElementById('myChart'))
                 let myChart1 = this.$echarts.init(document.getElementById('myChart1'))
                 // 绘制图表
@@ -82,31 +94,37 @@
                         boundaryGap: false,
                         data: []
                     },
-                    yAxis: {
+                    yAxis: [{
                         type: 'value'
-                    },
+                    },{
+                        type: 'value'
+                    }],
                     series: [
                         {
                             name: '现有确诊',
                             type: 'line',
+                            yAxisIndex: 0,
                             // stack: '总量',
                             data: []
                         },
                         {
                             name: '累计确诊',
                             type: 'line',
+                            yAxisIndex: 0,
                             // stack: '总量',
                             data: []
                         },
                         {
                             name: '治愈人数',
                             type: 'line',
+                            yAxisIndex: 0,
                             // stack: '总量',
                             data: []
                         },
                         {
                             name: '死亡人数',
                             type: 'line',
+                            yAxisIndex: 1,
                             // stack: '总量',
                             data: []
                         },
@@ -118,7 +136,16 @@
                     },
                     tooltip: {
                         trigger: 'axis',
-                        formatter: '{b}<br />{a0}: {c0}%<br />{a1}: {c1}%'
+                        formatter: function(params) {
+                            console.log(params)
+                            let date = params[0].name + '</br>'
+                            params.forEach((item, index) => {
+                                let name = item.seriesName
+                                let number = item.data + '%'
+                                date = date + name + ": " + number + '</br>'
+                            })
+                            return date
+                        }
                     },
                     legend: {
                         data: ['治愈率','病死率']
@@ -173,20 +200,22 @@
                 myChart.showLoading();
                 myChart1.showLoading();
                 this.cityName = this.row.areaname
-                console.log(this.cityName)
+                // console.log(this.cityName)
                 axios({
                     url: apiRoot + '/epidemic/allDateInfo?name=' + this.cityName,
                     method:'get'
                 }).then((res) => {
                     if(res.data.code == 200){
                         res.data.data.forEach((item,index) => {
-                            this.date.push(item.date.slice(5))
-                            this.totalConfirm.push(item.totalconfirm)
-                            this.totalDead.push(item.totaldead)
-                            this.totalCure.push(item.totalheal)
-                            this.deadRate.push(this.toPoint(item.mortality))
-                            this.cureRate.push(this.toPoint(item.cureRate))
-                            this.remainConfirm.push(item.remainConfirm)
+                            if(this.date.length != res.data.data.length){
+                                this.date.push(item.date.slice(5))
+                                this.totalConfirm.push(item.totalconfirm)
+                                this.totalDead.push(item.totaldead)
+                                this.totalCure.push(item.totalheal)
+                                this.deadRate.push(this.toPoint(item.mortality))
+                                this.cureRate.push(this.toPoint(item.cureRate))
+                                this.remainConfirm.push(item.remainConfirm)
+                            }
                         })
                         myChart.hideLoading();
                         myChart.setOption({
@@ -223,7 +252,7 @@
                     }else{
                         this.$Message.error(res.data.message)
                     }
-                    console.log(this.totalConfirm)
+                    // console.log(this.totalConfirm)
                 }).catch((err) => {
                     this.$Message.error(err)
                 })

@@ -11,7 +11,9 @@ import XLSX from 'xlsx/dist/xlsx.full.min'
 import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
 import router from './router'
+import GeminiScrollbar from 'vue-gemini-scrollbar'
 
+Vue.use(GeminiScrollbar)
 Vue.use(ViewUI);
 Vue.use(ElementUI);
 

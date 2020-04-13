@@ -1,23 +1,24 @@
 <template>
-  <div>
-    <Tabs size="small" id="tabs">
-      <TabPane label="风险统计" class="markpage">
-        <Table></Table>
-      </TabPane>
-      <TabPane label="风险查询">
-        <Choose class="markpage"></Choose>
-      </TabPane>
-    </Tabs>
+  <div style="height: 65vh">
+<!--    <Tabs size="small" id="tabs">-->
+<!--      <TabPane label="风险评估" class="markpage">-->
+        <Table2></Table2>
+<!--      </TabPane>-->
+<!--      <TabPane label="批量查询" class="markpage">-->
+<!--        <Table></Table>-->
+<!--      </TabPane>-->
+<!--      <TabPane label="单地查询">-->
+<!--        <Choose class="markpage"></Choose>-->
+<!--      </TabPane>-->
+<!--    </Tabs>-->
   </div>
 </template>
 
 <script>
-import Choose from "./routechoose.vue";
-import Table from "./routetable.vue";
+import Table2 from "./routeDisplay.vue";
 export default {
   components: {
-    Choose,
-    Table
+    Table2
   }
 };
 </script>

@@ -164,7 +164,7 @@
                         :indent-size="0"
                       >
                      <template slot-scope="{ row }" slot="specific">
-                          <span>
+                       <span>
                             <div v-if="row.specific=='详情'" @mouseenter="mEnter(row.factor)">
                                                             <Button
                                                               type="primary" @click="modal1=true,cityName=row.factor"
@@ -225,11 +225,11 @@
         <Divider></Divider>
       </div>
     </Card>
-
+    <Modal v-model="modal" title="Common Modal dialog box title"></Modal>
   </div>
 </template>
 <script>
-  import CityDetail from '@/assets/citydetail.vue';
+import CityDetail from '@/assets/citydetail.vue';
 export default {
   props: {
     row: Object
@@ -240,6 +240,7 @@ export default {
   data() {
     return {
       demos: {},
+      modal: false,
       modal1: false,
       cityName: '',
       columns: [
@@ -356,14 +357,13 @@ export default {
   },
   mounted() {
     this.construct(this.row.sumCalResponseList);
-
   },
   methods: {
 
     construct(data) {
       this.doubleLineList = [];
-
-
+      let theTemplate = [];
+      theTemplate = this.theTemplate;
 
       for (let i = 0; i < data.length; i++) {
         let lineList = [];
